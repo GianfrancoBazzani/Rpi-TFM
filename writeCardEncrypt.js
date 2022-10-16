@@ -21,15 +21,15 @@ const softSPI = new SoftSPI({
 const mfrc522 = new MFRC522(softSPI).setResetPin(22).setBuzzerPin(18);
 
 //Bytes array to Hex string conversion
-const toHexString = (bytes) => {
-  return bytes.map(function(byte) {
-    if(byte > 9){
-      return (byte & 0xFF).toString(16);
-    } else {
-      return "0" + (byte & 0xFF).toString(16);
-    }
-  }).join('')
-}
+//const toHexString = (bytes) => {
+//  return bytes.map(function(byte) {
+//    if(byte > 9){
+//      return (byte & 0xFF).toString(16);
+//    } else {
+//      return "0" + (byte & 0xFF).toString(16);
+//    }
+//  }).join('')
+//}
 
 
 //main loop
@@ -76,7 +76,7 @@ setInterval(function() {
     const oldKey = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff];
         
     // Authenticate on Block 8 with key and uid
-    if (!mfrc522.authenticate(9, oldKey, uid)) {
+    if (!mfrc522.authenticate(8, oldKey, uid)) {
         console.log("Authentication Error with default key");
         return;
     }

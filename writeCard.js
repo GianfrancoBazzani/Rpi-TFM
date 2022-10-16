@@ -65,36 +65,23 @@ setInterval(function() {
 	//Default key for authentication
   	const key = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff];
 
-	//# Address for card 1 0x21D92AA75890555296923098b6fe1c36b0c2dA4b
-	//let addressPart1 = [0x21,0xD9,0x2A,0xA7,0x58,0x90,0x55,0x52,0x96,0x92,0x30,0x98,0xb6,0xfe,0x1c,0x36];
-	//let addressPart2 = [0xb0,0xc2,0xdA,0x4b,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00];
-
 	//# Address for card 2  0x8ba1f109551bd432803012645ac136ddd64dba72
-	let addressPart1 = [0x8b,0xa1,0xf1,0x09,0x55,0x1b,0xd4,0x32,0x80,0x30,0x12,0x64,0x5a,0xc1,0x36,0xdd];
-	let addressPart2 = [0xd6,0x4d,0xba,0x72,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00];
+	let Salt = [0x8b,0xa1,0xf1,0x09,0x55,0x1b,0xd4,0x32,0x80,0x30,0x12,0x64,0x5a,0xc1,0x36,0xdd];
 
 	//# Authenticate on Block 8 with key and uid
   	if (!mfrc522.authenticate(8, key, uid)) {
     		console.log("Authentication Error");
     		return;
   	}
-	//# Write first 16 Bytes of the address
-	console.log("Block 8 will be filled with addressPart1(16Bytes):");
-	mfrc522.writeDataToBlock(8, addressPart1);
+	// Generate Hash
 
 
-	//# Authenticate on Block 9 with key and uid
-  	if (!mfrc522.authenticate(9, key, uid)) {
-    		console.log("Authentication Error");
-    		return;
-  	}
 	//# Write last 4 Bytes + 16 dummy 0x00 of the address
-	console.log("Block 9 will be filled with addressPart2(4Bytes) + 16 0x00 dummy bytes:");
-	mfrc522.writeDataToBlock(9, addressPart2);
+	console.log("Block 8 will be filled with SALT:");
+	mfrc522.writeDataToBlock(8, Salt);
 
 	//# Address recovery
-	let recoveredAddressPart1 = mfrc522.getDataForBlock(8);
-	let recoveredAddressPart2 = mfrc522.getDataForBlock(9);
+	let recoveredAddressPart1 = mfrc522.getDataForBlock(9);
 
 	console.log("0x" + toHexString(recoveredAddressPart1) + toHexString(recoveredAddressPart2).slice(0,8))
 

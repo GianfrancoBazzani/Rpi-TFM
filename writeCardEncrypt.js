@@ -59,12 +59,21 @@ setInterval(function() {
 	console.log(
 		"Card read UID: 0x " + uid[0].toString(16) + " " + uid[1].toString(16) + " "  + uid[2].toString(16) + " " + uid[0].toString(16)
  	);
-
-    // uid Hash computation
+    
+    // Computing SALT block encryption key
+    
     let uidString = uid[0].toString(16) + uid[1].toString(16) + uid[2].toString(16) + uid[0].toString(16);
-    console.log(uidString)  
-    let uidHash = sha256(uid)
-    console.log(uidHash)
+    let HWkey = "12345678"
+
+    let SALTkey = sha256("" + uidString + HWkey, { asBytes: true })
+
+    console.log( SALTkey)
+
+
+    // Compute Salt container encryption key
+
+    
+
 
 	// //Scaned Card Selection
 	// const memoryCapacity = mfrc522.selectCard(uid);

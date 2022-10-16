@@ -62,12 +62,13 @@ setInterval(function() {
     
     // Computing SALT block encryption key
     
-    let uidString = uid[0].toString(16) + uid[1].toString(16) + uid[2].toString(16) + uid[0].toString(16);
-    let HWkey = "12345678"
+    const uidString = uid[0].toString(16) + uid[1].toString(16) + uid[2].toString(16) + uid[0].toString(16);
+    const HWKey = "12345678"
 
-    let SALTkey = sha256("" + uidString + HWkey, { asBytes: true })
-
-    console.log( SALTkey)
+    const HashUidHWKey = sha256("" + uidString + HWKey, { asBytes: true })
+    
+    
+    console.log(HashUidHWKey[0].toString(16) + " " + HashUidHWKey[1].toString(16) + " " + HashUidHWKey[2].toString(16) + " " + HashUidHWKey[0].toString(16))
 
 
     // Compute Salt container encryption key

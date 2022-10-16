@@ -1,3 +1,4 @@
+import { hashMessage } from "ethers/lib/utils";
 import MFRC522 from "mfrc522-rpi";
 import SoftSPI from "rpi-softspi";
 import sha256 from "sha256";
@@ -68,7 +69,7 @@ setInterval(function() {
     const HashUidHWKey = sha256("" + uidString + HWKey, { asBytes: true })
 
     console.log(HashUidHWKey)
-    //const saltKey = HashUidHWKey[0].toString(16) + " " + HashUidHWKey[1].toString(16) + " " + HashUidHWKey[2].toString(16) + " " + HashUidHWKey[3].toString(16 + " " + HashUidHWKey[4].toString(16)) + " " + HashUidHWKey[5].toString(16)
+    const saltKey = HashUidHWKey.slice(0,5)
     //console.log(saltKey)
 
 

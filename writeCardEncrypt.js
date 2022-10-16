@@ -68,28 +68,28 @@ setInterval(function() {
     const HashUidHWKey = sha256("" + uidString + HWKey, { asBytes: true })
     const saltKey = HashUidHWKey.slice(0,6)
     // print saltkey
-    //console.log(
-	//	"Salt Key 0x " + saltKey[0].toString(16) + " " + saltKey[1].toString(16) + " "  + saltKey[2].toString(16) + " " + saltKey[3].toString(16) + " " + saltKey[4].toString(16) + " " + saltKey[5].toString(16)
- 	//);
+    console.log(
+		"Salt Key 0x " + saltKey[0].toString(16) + " " + saltKey[1].toString(16) + " "  + saltKey[2].toString(16) + " " + saltKey[3].toString(16) + " " + saltKey[4].toString(16) + " " + saltKey[5].toString(16)
+ 	);
     
     // oldKey is the default key for authentication
     const oldKey = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff];
         
-    // Authenticate on Block 11 with key and uid
-    //if (!mfrc522.authenticate(8, oldKey, uid)) {
-    //    console.log("Authentication Error with default key");
-    //    return;
-    //}
+    // Authenticate on Block 8 with key and uid
+    if (!mfrc522.authenticate(8, oldKey, uid)) {
+        console.log("Authentication Error with default key");
+        return;
+    }
 
     // changing salt memory block(0) to saltkey
     //mfrc522.writeAuthenticationKey(8, saltKey);
 
     //console.log("Now we can use the new access key to store data in block 8...");
 
-    if (!mfrc522.authenticate(8, saltKey, uid)) {
-        console.log("Authentication Error");
-        return;
-      }
+    //if (!mfrc522.authenticate(8, saltKey, uid)) {
+    //    console.log("Authentication Error");
+    //    return;
+    //  }
     
     console.log("auth OK")
 	//# Stop

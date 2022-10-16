@@ -103,20 +103,26 @@ async function main(){
                         return;
                 }
 
-		//Authenticate on Block 9 with key and uid
-  		if (!mfrc522.authenticate(9, key, uid)) {
-    			console.log("Authentication Error");
-    			return;
-  		}
+		
 
 		//Dump Block 8
 		let recoveredAddressPart1 = mfrc522.getDataForBlock(8);
 
-		//Dump Block 9
-		let recoveredAddressPart2 = mfrc522.getDataForBlock(9);
+		console.log(recoveredAddressPart1)
 
 		//Stop card communication
 		mfrc522.stopCrypto();
+
+			
+
+
+
+
+
+
+
+		/*
+		//Call contract
 		//Address hexstring conversion
 		let cardAddress = ("0x" + toHexString(recoveredAddressPart1) + toHexString(recoveredAddressPart2).slice(0,8));
 		try{
@@ -133,7 +139,7 @@ async function main(){
 		} catch(e){
 			console.log(e);
 		  	mutex = false;
-		}
+		}*/
 		}
 	}, 750);
 }

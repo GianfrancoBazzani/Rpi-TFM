@@ -76,21 +76,22 @@ setInterval(function() {
     const oldKey = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff];
         
     // Authenticate on Block 11 with key and uid
-    if (!mfrc522.authenticate(8, oldKey, uid)) {
-        console.log("Authentication Error");
-        return;
-    }
+    //if (!mfrc522.authenticate(8, oldKey, uid)) {
+    //    console.log("Authentication Error with default key");
+    //    return;
+    //}
 
     // changing salt memory block(0) to saltkey
-    mfrc522.writeAuthenticationKey(8, saltKey);
+    //mfrc522.writeAuthenticationKey(8, saltKey);
 
-    console.log("Now we can use the new access key to store data in block 8...");
+    //console.log("Now we can use the new access key to store data in block 8...");
 
-    if (!mfrc522.authenticate(8, oldKey, uid)) {
+    if (!mfrc522.authenticate(8, saltKey, uid)) {
         console.log("Authentication Error");
         return;
       }
-
+    
+    console.log("auth OK")
 	//# Stop
  	mfrc522.stopCrypto();
 }, 1000);

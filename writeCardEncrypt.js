@@ -66,7 +66,7 @@ setInterval(function() {
     const HWKey = "12345678"
 
     const HashUidHWKey = sha256("" + uidString + HWKey, { asBytes: true })
-    const saltKey = HashUidHWKey.slice(0,5)
+    const saltKey = HashUidHWKey.slice(0,6)
     
     console.log(
 		"Salt Key 0x " + saltKey[0].toString(16) + " " + saltKey[1].toString(16) + " "  + saltKey[2].toString(16) + " " + saltKey[3].toString(16) + " " + saltKey[4].toString(16) + " " + saltKey[5].toString(16)

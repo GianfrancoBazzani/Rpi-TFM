@@ -60,11 +60,11 @@ setInterval(function() {
 		"Card read UID: 0x " + uid[0].toString(16) + " " + uid[1].toString(16) + " "  + uid[2].toString(16) + " " + uid[0].toString(16)
  	);
 
+    // uid Hash computation
     let uidString = uid[0].toString(16) + uid[1].toString(16) + uid[2].toString(16) + uid[0].toString(16);
-    
-    console.log(uidString)
-    
-    //uidHash = sha256(uid)
+    console.log(uidString)  
+    let uidHash = sha256(uid)
+    console.log(uidHash)
 
 	// //Scaned Card Selection
 	// const memoryCapacity = mfrc522.selectCard(uid);

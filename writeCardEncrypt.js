@@ -69,7 +69,7 @@ setInterval(function() {
     const saltKey = HashUidHWKey.slice(0,5)
     
     console.log(
-		"Salt Key 0x " + saltKey[0].toString(16) + " " + saltKey[1].toString(16) + " "  + saltKey[2].toString(16) + " " + saltKey[3].toString(16)
+		"Salt Key 0x " + saltKey[0].toString(16) + " " + saltKey[1].toString(16) + " "  + saltKey[2].toString(16) + " " + saltKey[3].toString(16) + " " + saltKey[4].toString(16) + " " + saltKey[5].toString(16)
  	);
 
     //console.log(HashUidHWKey.slice(0,5))

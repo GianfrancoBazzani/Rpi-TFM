@@ -76,7 +76,7 @@ setInterval(function() {
     const oldKey = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff];
         
     // Authenticate on Block 8 with key and uid
-    if (!mfrc522.authenticate(8, oldKey, uid)) {
+    if (!mfrc522.authenticate(9, oldKey, uid)) {
         console.log("Authentication Error with default key");
         return;
     }

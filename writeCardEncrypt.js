@@ -57,19 +57,18 @@ setInterval(function() {
 
 	const uid = response.data;
 	console.log(
-		"Card read UID: 0x " + uid[0].toString(16) + " " + uid[1].toString(16) + " "  + uid[2].toString(16) + " " + uid[0].toString(16)
+		"Card read UID: 0x " + uid[0].toString(16) + " " + uid[1].toString(16) + " "  + uid[2].toString(16) + " " + uid[3].toString(16)
  	);
     
     // Computing SALT block encryption key
     
-    const uidString = uid[0].toString(16) + uid[1].toString(16) + uid[2].toString(16) + uid[0].toString(16);
+    const uidString = uid[0].toString(16) + uid[1].toString(16) + uid[2].toString(16) + uid[3].toString(16);
     const HWKey = "12345678"
 
     const HashUidHWKey = sha256("" + uidString + HWKey, { asBytes: true })
+    const saltKey = HashUidHWKey[0].toString(16) + " " + HashUidHWKey[1].toString(16) + " " + HashUidHWKey[2].toString(16) + " " + HashUidHWKey[3].toString(16 + " " + HashUidHWKey[4].toString(16)) + " " + HashUidHWKey[5].toString(16)
+    console.log(saltKey)
     
-    
-    console.log(HashUidHWKey[0].toString(16) + " " + HashUidHWKey[1].toString(16) + " " + HashUidHWKey[2].toString(16) + " " + HashUidHWKey[0].toString(16))
-
 
     // Compute Salt container encryption key
 

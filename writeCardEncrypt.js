@@ -67,61 +67,29 @@ setInterval(function() {
 
     const HashUidHWKey = sha256("" + uidString + HWKey, { asBytes: true })
     const saltKey = HashUidHWKey.slice(0,6)
+    // print saltkey
+    //console.log(
+	//	"Salt Key 0x " + saltKey[0].toString(16) + " " + saltKey[1].toString(16) + " "  + saltKey[2].toString(16) + " " + saltKey[3].toString(16) + " " + saltKey[4].toString(16) + " " + saltKey[5].toString(16)
+ 	//);
     
-    console.log(
-		"Salt Key 0x " + saltKey[0].toString(16) + " " + saltKey[1].toString(16) + " "  + saltKey[2].toString(16) + " " + saltKey[3].toString(16) + " " + saltKey[4].toString(16) + " " + saltKey[5].toString(16)
- 	);
+    // oldKey is the default key for authentication
+    const oldKey = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff];
+        
+    // Authenticate on Block 11 with key and uid
+    if (!mfrc522.authenticate(8, oldKey, uid)) {
+        console.log("Authentication Error");
+        return;
+    }
 
-    //console.log(HashUidHWKey.slice(0,5))
-    //const saltKey = HashUidHWKey[0].toString(16) + " " + HashUidHWKey[1].toString(16) + " " + HashUidHWKey[2].toString(16) + " " + HashUidHWKey[3].toString(16 + " " + HashUidHWKey[4].toString(16)) + " " + HashUidHWKey[5].toString(16)
-    //console.log(saltKey)
+    // changing salt memory block(0) to saltkey
+    mfrc522.writeAuthenticationKey(8, saltKey);
 
+    console.log("Now we can use the new access key to store data in block 8...");
 
-    // Compute Salt container encryption key
-
-    
-
-
-	// //Scaned Card Selection
-	// const memoryCapacity = mfrc522.selectCard(uid);
-	// console.log("Card Memory Capacity:" + memoryCapacity);
-
-	// //Default key for authentication
-  	// const key = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff];
-
-	// //# Address for card 1 0x21D92AA75890555296923098b6fe1c36b0c2dA4b
-	// //let addressPart1 = [0x21,0xD9,0x2A,0xA7,0x58,0x90,0x55,0x52,0x96,0x92,0x30,0x98,0xb6,0xfe,0x1c,0x36];
-	// //let addressPart2 = [0xb0,0xc2,0xdA,0x4b,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00];
-
-	// //# Address for card 2  0x8ba1f109551bd432803012645ac136ddd64dba72
-	// let addressPart1 = [0x8b,0xa1,0xf1,0x09,0x55,0x1b,0xd4,0x32,0x80,0x30,0x12,0x64,0x5a,0xc1,0x36,0xdd];
-	// let addressPart2 = [0xd6,0x4d,0xba,0x72,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00];
-
-	// //# Authenticate on Block 8 with key and uid
-  	// if (!mfrc522.authenticate(8, key, uid)) {
-    // 		console.log("Authentication Error");
-    // 		return;
-  	// }
-	// //# Write first 16 Bytes of the address
-	// console.log("Block 8 will be filled with addressPart1(16Bytes):");
-	// mfrc522.writeDataToBlock(8, addressPart1);
-
-
-	// //# Authenticate on Block 9 with key and uid
-  	// if (!mfrc522.authenticate(9, key, uid)) {
-    // 		console.log("Authentication Error");
-    // 		return;
-  	// }
-	// //# Write last 4 Bytes + 16 dummy 0x00 of the address
-	// console.log("Block 9 will be filled with addressPart2(4Bytes) + 16 0x00 dummy bytes:");
-	// mfrc522.writeDataToBlock(9, addressPart2);
-
-	// //# Address recovery
-	// let recoveredAddressPart1 = mfrc522.getDataForBlock(8);
-	// let recoveredAddressPart2 = mfrc522.getDataForBlock(9);
-
-	// console.log("0x" + toHexString(recoveredAddressPart1) + toHexString(recoveredAddressPart2).slice(0,8))
-
+    if (!mfrc522.authenticate(8, oldKey, uid)) {
+        console.log("Authentication Error");
+        return;
+      }
 
 	//# Stop
  	mfrc522.stopCrypto();

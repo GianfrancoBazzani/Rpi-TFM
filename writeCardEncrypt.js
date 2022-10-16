@@ -60,7 +60,7 @@ setInterval(function() {
 		"Card read UID: 0x " + uid[0].toString(16) + " " + uid[1].toString(16) + " "  + uid[2].toString(16) + " " + uid[0].toString(16)
  	);
 
-    uidString = uid[0].toString(16) + uid[1].toString(16) + uid[2].toString(16) + uid[0].toString(16);
+    let uidString = uid[0].toString(16) + uid[1].toString(16) + uid[2].toString(16) + uid[0].toString(16);
     
     console.log(uidString)
     
